@@ -317,40 +317,40 @@ public class CaldroidGridAdapter extends BaseAdapter {
 
         // Customize for selected dates
         if (selectedDates != null && selectedDatesMap.containsKey(dateTime)) {
-            Log.i("STATE DATE SELECTION","Customize for selected dates:"+position);
+            Log.i("STATE DATE SELECTION", "Customize for selected dates:" + position);
             //only 1 selected date
             if (selectedDatesMap.size() == 1) {
-                Log.i("STATE DATE SELECTION","only 1 selected date");
-                Log.i("STATE DATE SELECTION","CellView:STATE_SELECTED_SINGLE");
+                Log.i("STATE DATE SELECTION", "only 1 selected date");
+                Log.i("STATE DATE SELECTION", "CellView:STATE_SELECTED_SINGLE");
                 cellView.addCustomState(CellView.STATE_SELECTED_SINGLE);
             }
             //more than 1 selected date
             else {
-                Log.i("STATE DATE SELECTION","more than 1 selected date");
+                Log.i("STATE DATE SELECTION", "more than 1 selected date");
                 if (position > 0) {
                     //if index not 0 check the previous is selected
-                    Log.i("STATE DATE SELECTION","if index not 0 check the previous is selected");
+                    Log.i("STATE DATE SELECTION", "if index not 0 check the previous is selected");
                     DateTime dateTimePrevious = this.datetimeList.get(position - 1);
                     //if previous is selected may it's middle or end cell
                     if (selectedDatesMap.containsKey(dateTimePrevious)) {
-                        Log.i("STATE DATE SELECTION","if previous is selected may it's middle or end cell");
+                        Log.i("STATE DATE SELECTION", "if previous is selected may it's middle or end cell");
                         //if there is more dates check if next is selected
                         if (this.datetimeList.size() > position + 1) {
-                            Log.i("STATE DATE SELECTION","if there is more dates check if next is selected");
+                            Log.i("STATE DATE SELECTION", "if there is more dates check if next is selected");
                             DateTime dateTimeNext = this.datetimeList.get(position + 1);
                             if (selectedDatesMap.containsKey(dateTimeNext)) {
-                                Log.i("STATE DATE SELECTION","CellView:STATE_SELECTED");
+                                Log.i("STATE DATE SELECTION", "CellView:STATE_SELECTED");
                                 cellView.addCustomState(CellView.STATE_SELECTED);
                             } else {
-                                Log.i("STATE DATE SELECTION","CellView:STATE_SELECTED_END");
+                                Log.i("STATE DATE SELECTION", "CellView:STATE_SELECTED_END");
                                 cellView.addCustomState(CellView.STATE_SELECTED_END);
                             }
-                        }else {
-                            Log.i("STATE DATE SELECTION","CellView:STATE_SELECTED_END");
+                        } else {
+                            Log.i("STATE DATE SELECTION", "CellView:STATE_SELECTED_END");
                             cellView.addCustomState(CellView.STATE_SELECTED_END);
                         }
                     } else {
-                        Log.i("STATE DATE SELECTION","CellView:STATE_SELECTED_START");
+                        Log.i("STATE DATE SELECTION", "CellView:STATE_SELECTED_START");
                         cellView.addCustomState(CellView.STATE_SELECTED_START);
                     }
                 }

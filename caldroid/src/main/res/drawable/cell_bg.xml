@@ -8,9 +8,9 @@
     <!--disabled cell color-->
     <item android:drawable="@color/cell_not_current_month" caldroid:state_date_disabled="true" />
     <!--start and cell selection color-->
-    <item android:drawable="@drawable/cell_selected_cell_start" android:state_pressed="false"  caldroid:state_date_selected_start="true" />
-    <item android:drawable="@drawable/cell_selected_cell_end"  android:state_pressed="false"   caldroid:state_date_selected_end="true" />
-    <item android:drawable="@drawable/cell_selected_cell_single"  android:state_pressed="false"  caldroid:state_date_selected_single="true" />
+    <item android:drawable="@drawable/cell_selected_cell_start" android:state_pressed="false" caldroid:state_date_selected_start="true" />
+    <item android:drawable="@drawable/cell_selected_cell_end" android:state_pressed="false" caldroid:state_date_selected_end="true" />
+    <item android:drawable="@drawable/cell_selected_cell_single" android:state_pressed="false" caldroid:state_date_selected_single="true" />
     <!--before cell touch color-->
     <item android:drawable="@drawable/cell_selected_cell_middle" android:state_pressed="false" caldroid:state_date_selected="true" />
     <!--on cell touch color-->

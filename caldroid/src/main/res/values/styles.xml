@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <style name="CaldroidDefault" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="styleCaldroidViewLayout">@style/CaldroidDefaultCalendarViewLayout</item>
         <item name="styleCaldroidLeftArrow">@style/CaldroidDefaultLeftButton</item>

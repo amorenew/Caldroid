@@ -1,20 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="?styleCaldroidViewLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    style="?styleCaldroidViewLayout"
-    android:orientation="vertical"
-    >
+    android:orientation="vertical">
 
     <LinearLayout
         android:id="@+id/calendar_title_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="8dp"
-        android:orientation="horizontal"
         android:background="@color/calendar_header_background"
         android:gravity="center_vertical"
-        >
+        android:orientation="horizontal"
+        android:paddingTop="8dp">
 
         <ImageButton
             android:id="@+id/calendar_left_arrow"
@@ -22,7 +20,7 @@
 
         <TextView
             android:id="@+id/calendar_month_year_textview"
-            style="?styleCaldroidMonthName"/>
+            style="?styleCaldroidMonthName" />
 
         <ImageButton
             android:id="@+id/calendar_right_arrow"
@@ -33,15 +31,14 @@
         android:id="@+id/weekday_gridview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="-10dp"
-        android:numColumns="7"
         android:background="@color/calendar_week__background"
-        android:stretchMode="columnWidth" >
-    </GridView>
+        android:numColumns="7"
+        android:paddingTop="-10dp"
+        android:stretchMode="columnWidth"></GridView>
 
     <com.antonyt.infiniteviewpager.InfiniteViewPager
         android:id="@+id/months_infinite_pager"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content" />
 
 </LinearLayout>
