@@ -91,7 +91,7 @@ public class CaldroidSampleCustomAdapter extends CaldroidGridAdapter {
 		if (shouldResetDiabledView && shouldResetSelectedView) {
 			// Customize for today
 			if (dateTime.equals(getToday())) {
-				cellView.setBackgroundResource(com.caldroid.R.drawable.red_border);
+				cellView.setBackgroundResource(com.caldroid.R.drawable.cell_selected_cell_start);
 			} else {
 				cellView.setBackgroundResource(com.caldroid.R.drawable.cell_bg);
 			}

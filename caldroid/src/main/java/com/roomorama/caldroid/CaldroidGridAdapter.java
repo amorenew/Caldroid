@@ -6,6 +6,7 @@ import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
@@ -62,7 +63,35 @@ public class CaldroidGridAdapter extends BaseAdapter {
      */
     protected Map<String, Object> extraData;
 
-	protected LayoutInflater localInflater;
+    protected LayoutInflater localInflater;
+
+    /**
+     * Constructor
+     *
+     * @param context
+     * @param month
+     * @param year
+     * @param caldroidData
+     * @param extraData
+     */
+    public CaldroidGridAdapter(Context context, int month, int year,
+                               Map<String, Object> caldroidData,
+                               Map<String, Object> extraData) {
+        super();
+        this.month = month;
+        this.year = year;
+        this.context = context;
+        this.caldroidData = caldroidData;
+        this.extraData = extraData;
+        this.resources = context.getResources();
+
+        // Get data from caldroidData
+        populateFromCaldroidData();
+
+        LayoutInflater inflater = (LayoutInflater) context
+                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        localInflater = CaldroidFragment.getThemeInflater(context, inflater, themeResource);
+    }
 
     public void setAdapterDateTime(DateTime dateTime) {
         this.month = dateTime.getMonth();
@@ -129,34 +158,6 @@ public class CaldroidGridAdapter extends BaseAdapter {
 
     public void setExtraData(Map<String, Object> extraData) {
         this.extraData = extraData;
-    }
-
-    /**
-     * Constructor
-     *
-     * @param context
-     * @param month
-     * @param year
-     * @param caldroidData
-     * @param extraData
-     */
-    public CaldroidGridAdapter(Context context, int month, int year,
-                               Map<String, Object> caldroidData,
-                               Map<String, Object> extraData) {
-        super();
-        this.month = month;
-        this.year = year;
-        this.context = context;
-        this.caldroidData = caldroidData;
-        this.extraData = extraData;
-        this.resources = context.getResources();
-
-        // Get data from caldroidData
-        populateFromCaldroidData();
-
-	    LayoutInflater inflater = (LayoutInflater) context
-			    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-	    localInflater = CaldroidFragment.getThemeInflater(context, inflater, themeResource);
     }
 
     /**
@@ -316,8 +317,50 @@ public class CaldroidGridAdapter extends BaseAdapter {
 
         // Customize for selected dates
         if (selectedDates != null && selectedDatesMap.containsKey(dateTime)) {
-            cellView.addCustomState(CellView.STATE_SELECTED);
+            Log.i("STATE DATE SELECTION","Customize for selected dates:"+position);
+            //only 1 selected date
+            if (selectedDatesMap.size() == 1) {
+                Log.i("STATE DATE SELECTION","only 1 selected date");
+                Log.i("STATE DATE SELECTION","CellView:STATE_SELECTED_SINGLE");
+                cellView.addCustomState(CellView.STATE_SELECTED_SINGLE);
+            }
+            //more than 1 selected date
+            else {
+                Log.i("STATE DATE SELECTION","more than 1 selected date");
+                if (position > 0) {
+                    //if index not 0 check the previous is selected
+                    Log.i("STATE DATE SELECTION","if index not 0 check the previous is selected");
+                    DateTime dateTimePrevious = this.datetimeList.get(position - 1);
+                    //if previous is selected may it's middle or end cell
+                    if (selectedDatesMap.containsKey(dateTimePrevious)) {
+                        Log.i("STATE DATE SELECTION","if previous is selected may it's middle or end cell");
+                        //if there is more dates check if next is selected
+                        if (this.datetimeList.size() > position + 1) {
+                            Log.i("STATE DATE SELECTION","if there is more dates check if next is selected");
+                            DateTime dateTimeNext = this.datetimeList.get(position + 1);
+                            if (selectedDatesMap.containsKey(dateTimeNext)) {
+                                Log.i("STATE DATE SELECTION","CellView:STATE_SELECTED");
+                                cellView.addCustomState(CellView.STATE_SELECTED);
+                            } else {
+                                Log.i("STATE DATE SELECTION","CellView:STATE_SELECTED_END");
+                                cellView.addCustomState(CellView.STATE_SELECTED_END);
+                            }
+                        }else {
+                            Log.i("STATE DATE SELECTION","CellView:STATE_SELECTED_END");
+                            cellView.addCustomState(CellView.STATE_SELECTED_END);
+                        }
+                    } else {
+                        Log.i("STATE DATE SELECTION","CellView:STATE_SELECTED_START");
+                        cellView.addCustomState(CellView.STATE_SELECTED_START);
+                    }
+                }
+            }
+
         }
+
+//        if (position==0){
+//            cellView.addCustomState(CellView.STATE_SELECTED_START);
+//        }
 
         cellView.refreshDrawableState();
 
@@ -349,21 +392,21 @@ public class CaldroidGridAdapter extends BaseAdapter {
         return 0;
     }
 
-	@Override
-	public View getView(int position, View convertView, ViewGroup parent) {
-		CellView cellView;
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+        CellView cellView;
 
-		// For reuse
-		if (convertView == null) {
-			final int squareDateCellResource = squareTextViewCell ? R.layout.square_date_cell : R.layout.normal_date_cell;
-			cellView = (CellView) localInflater.inflate(squareDateCellResource, parent, false);
-		} else {
-			cellView = (CellView) convertView;
-		}
+        // For reuse
+        if (convertView == null) {
+            final int squareDateCellResource = squareTextViewCell ? R.layout.square_date_cell : R.layout.normal_date_cell;
+            cellView = (CellView) localInflater.inflate(squareDateCellResource, parent, false);
+        } else {
+            cellView = (CellView) convertView;
+        }
 
-		customizeTextView(position, cellView);
+        customizeTextView(position, cellView);
 
-		return cellView;
-	}
+        return cellView;
+    }
 
 }

@@ -1,8 +1,9 @@
 package com.roomorama.caldroid;
 
 import android.content.Context;
+import android.support.v7.widget.AppCompatTextView;
 import android.util.AttributeSet;
-import android.widget.TextView;
+
 import com.caldroid.R;
 
 import java.util.ArrayList;
@@ -10,10 +11,14 @@ import java.util.ArrayList;
 /**
  * Created by crocodile2u on 3/30/15.
  */
-public class CellView extends TextView {
+public class CellView extends AppCompatTextView {
 
     public static final int STATE_TODAY = R.attr.state_date_today;
+    public static final int STATE_SELECTED_SINGLE = R.attr.state_date_selected_single;
     public static final int STATE_SELECTED = R.attr.state_date_selected;
+    public static final int STATE_SELECTED_START = R.attr.state_date_selected_start;
+    public static final int STATE_SELECTED_END = R.attr.state_date_selected_end;
+    public static final int STATE_SELECTED_ENABLED = R.attr.state_date_enabled;
     public static final int STATE_DISABLED = R.attr.state_date_disabled;
     public static final int STATE_PREV_NEXT_MONTH = R.attr.state_date_prev_next_month;
 

@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.Utils;
 import com.roomorama.caldroid.CaldroidFragment;
 import com.roomorama.caldroid.CaldroidListener;
 
@@ -39,12 +40,12 @@ public class CaldroidSampleActivity extends AppCompatActivity {
         Date greenDate = cal.getTime();
 
         if (caldroidFragment != null) {
-            ColorDrawable blue = new ColorDrawable(getResources().getColor(R.color.blue));
-            ColorDrawable green = new ColorDrawable(Color.GREEN);
-            caldroidFragment.setBackgroundDrawableForDate(blue, blueDate);
-            caldroidFragment.setBackgroundDrawableForDate(green, greenDate);
-            caldroidFragment.setTextColorForDate(R.color.white, blueDate);
-            caldroidFragment.setTextColorForDate(R.color.white, greenDate);
+//            ColorDrawable blue = new ColorDrawable(getResources().getColor(R.color.blue));
+//            ColorDrawable green = new ColorDrawable(Color.GREEN);
+//            caldroidFragment.setBackgroundDrawableForDate(blue, blueDate);
+//            caldroidFragment.setBackgroundDrawableForDate(green, greenDate);
+//            caldroidFragment.setTextColorForDate(R.color.white, blueDate);
+//            caldroidFragment.setTextColorForDate(R.color.white, greenDate);
         }
     }
 
@@ -145,7 +146,7 @@ public class CaldroidSampleActivity extends AppCompatActivity {
         customizeButton.setOnClickListener(new OnClickListener() {
 
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
                 if (undo) {
                     customizeButton.setText(getString(R.string.customize));
                     textView.setText("");
@@ -168,12 +169,12 @@ public class CaldroidSampleActivity extends AppCompatActivity {
                 Calendar cal = Calendar.getInstance();
 
                 // Min date is last 7 days
-                cal.add(Calendar.DATE, -7);
+//                cal.add(Calendar.DATE, -7);
                 Date minDate = cal.getTime();
 
                 // Max date is next 7 days
                 cal = Calendar.getInstance();
-                cal.add(Calendar.DATE, 14);
+                cal.add(Calendar.DATE, 28);
                 Date maxDate = cal.getTime();
 
                 // Set selected dates
@@ -184,11 +185,11 @@ public class CaldroidSampleActivity extends AppCompatActivity {
 
                 // To Date
                 cal = Calendar.getInstance();
-                cal.add(Calendar.DATE, 3);
+                cal.add(Calendar.DATE, 5);
                 Date toDate = cal.getTime();
 
                 // Set disabled dates
-                ArrayList<Date> disabledDates = new ArrayList<Date>();
+                ArrayList<Date> disabledDates = new ArrayList<>();
                 for (int i = 5; i < 8; i++) {
                     cal = Calendar.getInstance();
                     cal.add(Calendar.DATE, i);
@@ -198,11 +199,10 @@ public class CaldroidSampleActivity extends AppCompatActivity {
                 // Customize
                 caldroidFragment.setMinDate(minDate);
                 caldroidFragment.setMaxDate(maxDate);
-                caldroidFragment.setDisableDates(disabledDates);
+//                caldroidFragment.setDisableDates(disabledDates);
                 caldroidFragment.setSelectedDates(fromDate, toDate);
-                caldroidFragment.setShowNavigationArrows(false);
-                caldroidFragment.setEnableSwipe(false);
-
+                caldroidFragment.setShowNavigationArrows(true);
+                caldroidFragment.setEnableSwipe(true);
                 caldroidFragment.refreshView();
 
                 // Move to date

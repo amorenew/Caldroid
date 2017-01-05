@@ -1,14 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<selector xmlns:android="http://schemas.android.com/apk/res/android"
-          xmlns:caldroid="http://schemas.android.com/apk/res-auto">
+<selector xmlns:android="http://schemas.android.com/apk/res/android" xmlns:caldroid="http://schemas.android.com/apk/res-auto">
+    <item android:drawable="@drawable/red_border_gray_bg" android:state_pressed="false" caldroid:state_date_disabled="true" caldroid:state_date_today="true" />
+    <!--removed caldroid:state_date_today="true" because no need to color current day-->
+    <!--<item android:drawable="@drawable/cell_selected_cell_start" android:state_pressed="false" caldroid:state_date_today="true" />-->
+    <!--not current month cell color-->
+    <item android:drawable="@color/cell_not_current_month" android:state_pressed="false" caldroid:state_date_prev_next_month="true" />
+    <!--disabled cell color-->
+    <item android:drawable="@color/cell_not_current_month" caldroid:state_date_disabled="true" />
+    <!--start and cell selection color-->
+    <item android:drawable="@drawable/cell_selected_cell_start" android:state_pressed="false"  caldroid:state_date_selected_start="true" />
+    <item android:drawable="@drawable/cell_selected_cell_end"  android:state_pressed="false"   caldroid:state_date_selected_end="true" />
+    <item android:drawable="@drawable/cell_selected_cell_single"  android:state_pressed="false"  caldroid:state_date_selected_single="true" />
+    <!--before cell touch color-->
+    <item android:drawable="@drawable/cell_selected_cell_middle" android:state_pressed="false" caldroid:state_date_selected="true" />
+    <!--on cell touch color-->
+    <item android:drawable="@color/cell_touch" android:state_pressed="true" />
+    <!--normal cell color-->
+    <item android:drawable="@color/cell_normal" android:state_pressed="false" />
 
-
-    <item android:drawable="@drawable/red_border_gray_bg" android:state_pressed="false" caldroid:state_date_disabled="true" caldroid:state_date_today="true"/>
-    <item android:drawable="@drawable/red_border" android:state_pressed="false" caldroid:state_date_today="true"/>
-    <item android:drawable="@color/caldroid_white" android:state_pressed="false" caldroid:state_date_prev_next_month="true"/>
-    <item android:drawable="@drawable/disable_cell" caldroid:state_date_disabled="true"/>
-    <item android:drawable="@color/caldroid_holo_blue_light" android:state_pressed="false" caldroid:state_date_selected="true"/>
-    <item android:drawable="@color/caldroid_holo_blue_light" android:state_pressed="true"/>
-    <item android:drawable="@color/caldroid_white" android:state_pressed="false"/>
 
 </selector>

@@ -19,5 +19,22 @@
     <color name="caldroid_333">#333</color>
     <color name="caldroid_555">#555</color>
     <color name="caldroid_light_red">#ff7f7f</color>
+    <color name="calendar_dark_text">#66686a</color>
+    <!--Cell Colors-->
+    <color name="cell_selected">#ce583f</color>
+    <color name="cell_touch">#88cd6752</color>
+    <color name="cell_selected_middle">#33ffffff</color>
+    <color name="cell_normal">#10FFFFFF</color>
+    <color name="cell_not_current_month">#27FFFFFF</color>
+    <!--Calendar Colors-->
+    <color name="calendar_background">@android:color/transparent</color>
+    <color name="calendar_grid_background">#b000e6</color>
+    <color name="calendar_month_name">#aaFFFFFF</color>
+    <color name="calendar_week_name">@color/calendar_dark_text</color>
+    <color name="calendar_day_number">@color/calendar_month_name</color>
+    <color name="calendar_day_number_disabled">@color/calendar_dark_text</color>
+    <color name="calendar_header_background">@color/cell_not_current_month</color>
+    <color name="calendar_week__background">@color/cell_not_current_month</color>
+
 
 </resources>
