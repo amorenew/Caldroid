@@ -3,16 +3,16 @@
     <item android:drawable="@drawable/red_border_gray_bg" android:state_pressed="false" caldroid:state_date_disabled="true" caldroid:state_date_today="true" />
     <!--removed caldroid:state_date_today="true" because no need to color current day-->
     <!--<item android:drawable="@drawable/cell_selected_cell_start" android:state_pressed="false" caldroid:state_date_today="true" />-->
-    <!--not current month cell color-->
-    <item android:drawable="@color/cell_not_current_month" android:state_pressed="false" caldroid:state_date_prev_next_month="true" />
-    <!--disabled cell color-->
-    <item android:drawable="@color/cell_not_current_month" caldroid:state_date_disabled="true" />
     <!--start and cell selection color-->
     <item android:drawable="@drawable/cell_selected_cell_start" android:state_pressed="false" caldroid:state_date_selected_start="true" />
     <item android:drawable="@drawable/cell_selected_cell_end" android:state_pressed="false" caldroid:state_date_selected_end="true" />
     <item android:drawable="@drawable/cell_selected_cell_single" android:state_pressed="false" caldroid:state_date_selected_single="true" />
     <!--before cell touch color-->
     <item android:drawable="@drawable/cell_selected_cell_middle" android:state_pressed="false" caldroid:state_date_selected="true" />
+    <!--not current month cell color-->
+    <item android:drawable="@color/cell_not_current_month" android:state_pressed="false" caldroid:state_date_prev_next_month="true" />
+    <!--disabled cell color-->
+    <item android:drawable="@color/cell_not_current_month" caldroid:state_date_disabled="true" />
     <!--on cell touch color-->
     <item android:drawable="@color/cell_touch" android:state_pressed="true" />
     <!--normal cell color-->

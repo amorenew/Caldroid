@@ -187,7 +187,6 @@ public class CaldroidFragment extends DialogFragment {
      * Caldroid view components
      */
     private ImageButton leftArrowButton, rightArrowButton;
-    ;
     private TextView monthTitleTextView;
     private GridView weekdayGridView;
     private InfiniteViewPager dateViewPager;
@@ -987,7 +986,24 @@ public class CaldroidFragment extends DialogFragment {
                                 return;
                             }
                         }
+                        if (selectedDates.size() > 1) {
+                            selectedDates.clear();
+                        }
                         selectedDates.add(dateTime);
+                        if (selectedDates.size() > 1) {
+                            DateTime previousDateTime = selectedDates.get(0);
+                            if (previousDateTime.lt(dateTime)) {
+                                while (previousDateTime.lt(dateTime)) {
+                                    previousDateTime = previousDateTime.plusDays(1);
+                                    selectedDates.add(previousDateTime);
+                                }
+                            } else if (previousDateTime.gt(dateTime)) {
+                                while (previousDateTime.gt(dateTime)) {
+                                    dateTime = dateTime.plusDays(1);
+                                    selectedDates.add(dateTime);
+                                }
+                            }
+                        }
                         refreshView();
                         Date date = CalendarHelper
                                 .convertDateTimeToDate(dateTime);
