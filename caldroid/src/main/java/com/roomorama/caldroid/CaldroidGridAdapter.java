@@ -6,7 +6,6 @@ import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
@@ -18,8 +17,13 @@ import android.widget.TextView;
 import com.caldroid.R;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 import hirondelle.date4j.DateTime;
@@ -40,7 +44,7 @@ public class CaldroidGridAdapter extends BaseAdapter {
     // Use internally, to make the search for date faster instead of using
     // indexOf methods on ArrayList
     protected Map<DateTime, Integer> disableDatesMap = new HashMap<>();
-    protected Map<DateTime, Integer> selectedDatesMap = new HashMap<>();
+    protected LinkedHashMap<DateTime, Integer> selectedDatesMap = new LinkedHashMap<>();
 
     protected DateTime minDateTime;
     protected DateTime maxDateTime;
@@ -181,6 +185,7 @@ public class CaldroidGridAdapter extends BaseAdapter {
             for (DateTime dateTime : selectedDates) {
                 selectedDatesMap.put(dateTime, 1);
             }
+            selectedDatesMap = sortByKeys(selectedDatesMap);
         }
 
         minDateTime = (DateTime) caldroidData
@@ -202,6 +207,27 @@ public class CaldroidGridAdapter extends BaseAdapter {
                 startDayOfWeek, sixWeeksInCalendar);
 
         getDefaultResources();
+    }
+
+    public <K extends Comparable, V extends Comparable> LinkedHashMap<K, V> sortByKeys(LinkedHashMap<K, V> map) {
+        List<K> keys = new LinkedList<>(map.keySet());
+        Collections.sort(keys, (Comparator<? super K>) new Comparator<DateTime>() {
+            @Override
+            public int compare(DateTime first, DateTime second) {
+                //Collator collator = Collator.getInstance(new Locale("tr", "TR"));
+                return first.compareTo(second);
+            }
+        });
+
+        LinkedHashMap<K, V> sortedMap = new LinkedHashMap<>();
+        Integer index = new Integer(0);
+        for (K key : keys) {
+            sortedMap.put(key, (V) index);
+            index++;
+//            sortedMap.put(key, map.get(key));
+        }
+
+        return sortedMap;
     }
 
     // This method retrieve default resources for background and text color,
@@ -317,49 +343,13 @@ public class CaldroidGridAdapter extends BaseAdapter {
 
         // Customize for selected dates
         if (selectedDates != null && selectedDatesMap.containsKey(dateTime)) {
-            Log.i("STATE DATE SELECTION", "1> Customize for selected dates:" + position);
-            //only 1 selected date
             if (selectedDatesMap.size() == 1) {
-                Log.i("STATE DATE SELECTION", "2> only 1 selected date");
-                Log.i("STATE DATE SELECTION", "3> CellView:STATE_SELECTED_SINGLE");
-                cellView.addCustomState(CellView.STATE_SELECTED_SINGLE);
+                handleSingleSelectedState(cellView);
+            } else {
+                handleStartSelectedState(dateTime, cellView);
+                handleMiddleSelectedState(dateTime, cellView);
+                handleEndSelectedState(dateTime, cellView);
             }
-            //more than 1 selected date
-            else {
-                Log.i("STATE DATE SELECTION", "4> more than 1 selected date");
-                if (position > 0) {
-                    //if index not 0 check the previous is selected
-                    Log.i("STATE DATE SELECTION", "5> if index not 0 check the previous is selected");
-                    DateTime dateTimePrevious = this.datetimeList.get(position - 1);
-                    //if previous is selected may it's middle or end cell
-                    if (selectedDatesMap.containsKey(dateTimePrevious)) {
-                        Log.i("STATE DATE SELECTION", "6> if previous is selected may it's middle or end cell");
-                        //if there is more dates check if next is selected
-                        if (this.datetimeList.size() > position + 1) {
-                            Log.i("STATE DATE SELECTION", "7> if there is more dates check if next is selected");
-                            DateTime dateTimeNext = this.datetimeList.get(position + 1);
-                            if (selectedDatesMap.containsKey(dateTimeNext)) {
-                                Log.i("STATE DATE SELECTION", "8> CellView:STATE_SELECTED");
-                                cellView.addCustomState(CellView.STATE_SELECTED);
-                            } else {
-                                Log.i("STATE DATE SELECTION", "9> CellView:STATE_SELECTED_END");
-                                cellView.addCustomState(CellView.STATE_SELECTED_END);
-                            }
-                        } else {
-                            Log.i("STATE DATE SELECTION", "10> CellView:STATE_SELECTED_END");
-                            cellView.addCustomState(CellView.STATE_SELECTED_END);
-                        }
-                    } else {
-                        Log.i("STATE DATE SELECTION", "11> CellView:STATE_SELECTED_START");
-                        cellView.addCustomState(CellView.STATE_SELECTED_START);
-                    }
-                } else if (position == 0) {
-                    if (selectedDatesMap.containsKey(dateTime)) {
-                        cellView.addCustomState(CellView.STATE_SELECTED_START);
-                    }
-                }
-            }
-
         }
 
 //        if (position==0){
@@ -379,6 +369,27 @@ public class CaldroidGridAdapter extends BaseAdapter {
         cellView.setPadding(leftPadding, topPadding, rightPadding,
                 bottomPadding);
     }
+
+    private void handleSingleSelectedState(CellView cellView) {
+        cellView.addCustomState(CellView.STATE_SELECTED_SINGLE);
+    }
+
+    private void handleStartSelectedState(DateTime dateTime, CellView cellView) {
+        if (selectedDatesMap.get(dateTime) == 0)
+            cellView.addCustomState(CellView.STATE_SELECTED_START);
+    }
+
+    private void handleMiddleSelectedState(DateTime dateTime, CellView cellView) {
+        if (selectedDatesMap.get(dateTime) != 0 && selectedDatesMap.get(dateTime) != selectedDatesMap.size() - 1)
+            cellView.addCustomState(CellView.STATE_SELECTED);
+
+    }
+
+    private void handleEndSelectedState(DateTime dateTime, CellView cellView) {
+        if (selectedDatesMap.get(dateTime) == selectedDatesMap.size() - 1)
+            cellView.addCustomState(CellView.STATE_SELECTED_END);
+    }
+
 
     @Override
     public int getCount() {
