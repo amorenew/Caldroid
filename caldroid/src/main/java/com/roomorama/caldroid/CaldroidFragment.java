@@ -13,7 +13,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.text.format.DateUtils;
-import android.text.format.Time;
 import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,6 +34,7 @@ import java.lang.reflect.Field;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Formatter;
 import java.util.HashMap;
@@ -137,8 +137,8 @@ public class CaldroidFragment extends DialogFragment {
     protected String dialogTitle;
     protected int month = -1;
     protected int year = -1;
-    protected ArrayList<DateTime> disableDates = new ArrayList<DateTime>();
-    protected ArrayList<DateTime> selectedDates = new ArrayList<DateTime>();
+    protected ArrayList<DateTime> disableDates = new ArrayList<>();
+    protected ArrayList<DateTime> selectedDates = new ArrayList<>();
     protected DateTime minDateTime;
     protected DateTime maxDateTime;
     protected ArrayList<DateTime> dateInMonthsList;
@@ -165,7 +165,7 @@ public class CaldroidFragment extends DialogFragment {
     /**
      * datePagerAdapters hold 4 adapters, meant to be reused
      */
-    protected ArrayList<CaldroidGridAdapter> datePagerAdapters = new ArrayList<CaldroidGridAdapter>();
+    protected ArrayList<CaldroidGridAdapter> datePagerAdapters = new ArrayList<>();
     /**
      * To control the navigation
      */
@@ -180,7 +180,7 @@ public class CaldroidFragment extends DialogFragment {
     /**
      * First day of month time
      */
-    private Time firstMonthTime = new Time();
+//    private Time firstMonthTime = new Time();
     private Formatter monthYearFormatter = new Formatter(
             monthYearStringBuilder, Locale.getDefault());
     /**
@@ -989,8 +989,10 @@ public class CaldroidFragment extends DialogFragment {
                         if (selectedDates.size() > 1) {
                             selectedDates.clear();
                         }
-                        selectedDates.add(dateTime);
-                        if (selectedDates.size() > 1) {
+                        if (selectedDates.isEmpty()) {
+                            selectedDates.add(dateTime);
+                        }
+                        if (selectedDates.size() == 1) {
                             DateTime previousDateTime = selectedDates.get(0);
                             if (previousDateTime.lt(dateTime)) {
                                 while (previousDateTime.lt(dateTime)) {
@@ -998,6 +1000,7 @@ public class CaldroidFragment extends DialogFragment {
                                     selectedDates.add(previousDateTime);
                                 }
                             } else if (previousDateTime.gt(dateTime)) {
+                                selectedDates.add(dateTime);
                                 while (previousDateTime.gt(dateTime)) {
                                     dateTime = dateTime.plusDays(1);
                                     selectedDates.add(dateTime);
@@ -1042,8 +1045,8 @@ public class CaldroidFragment extends DialogFragment {
                                 return false;
                             }
                         }
-                        Date date = CalendarHelper
-                                .convertDateTimeToDate(dateTime);
+//                        Date date = CalendarHelper
+//                                .convertDateTimeToDate(dateTime);
 //                        caldroidListener.onLongClickDate(date, view);
                     }
 
@@ -1060,10 +1063,15 @@ public class CaldroidFragment extends DialogFragment {
      */
     protected void refreshMonthTitleTextView() {
         // Refresh title view
-        firstMonthTime.year = year;
-        firstMonthTime.month = month - 1;
-        firstMonthTime.monthDay = 15;
-        long millis = firstMonthTime.toMillis(true);
+//        firstMonthTime.year = year;
+//        firstMonthTime.month = month - 1;
+//        firstMonthTime.monthDay = 15;
+//        long millis = firstMonthTime.toMillis(true);
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.YEAR, year);
+        calendar.set(Calendar.MONTH, month - 1);
+        calendar.set(Calendar.DAY_OF_MONTH, 15);
+        long millis = calendar.getTimeInMillis();
 
         // This is the method used by the platform Calendar app to get a
         // correctly localized month name for display on a wall calendar

@@ -15,7 +15,7 @@ android {
 }
 
 dependencies {
-    compile 'com.darwinsys:hirondelle-date4j:1.5.1'
     compile 'com.android.support:support-v4:25.1.0'
     compile 'com.android.support:appcompat-v7:25.1.0'
+    compile files('lib/hirondelle-date4j-1.5.1.jar')
 }
