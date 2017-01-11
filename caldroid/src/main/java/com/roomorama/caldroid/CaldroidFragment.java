@@ -7,6 +7,7 @@ import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.annotation.DrawableRes;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
@@ -214,6 +215,8 @@ public class CaldroidFragment extends DialogFragment {
      * Caldroid
      */
     private CaldroidListener caldroidListener;
+    @DrawableRes
+    private int backgroundResId = -1;
 
     /**
      * To support faster init
@@ -1304,8 +1307,13 @@ public class CaldroidFragment extends DialogFragment {
 
         // Refresh view
         refreshView();
-
+        if (backgroundResId > 0)
+            view.setBackgroundResource(backgroundResId);
         return view;
+    }
+
+    public void setBackground(@DrawableRes int backgroundResId) {
+        this.backgroundResId = backgroundResId;
     }
 
     @Override

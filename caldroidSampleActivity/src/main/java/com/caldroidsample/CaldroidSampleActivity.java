@@ -231,7 +231,6 @@ public class CaldroidSampleActivity extends AppCompatActivity {
                 // Setup caldroid to use as dialog
                 dialogCaldroidFragment = new CaldroidFragment();
                 dialogCaldroidFragment.setCaldroidListener(listener);
-
                 // If activity is recovered from rotation
                 final String dialogTag = "CALDROID_DIALOG_FRAGMENT";
                 if (state != null) {
@@ -249,9 +248,10 @@ public class CaldroidSampleActivity extends AppCompatActivity {
                     // Setup dialogTitle
                     dialogCaldroidFragment.setArguments(bundle);
                 }
-
+                dialogCaldroidFragment.setBackground(R.drawable.background);
                 dialogCaldroidFragment.show(getSupportFragmentManager(),
                         dialogTag);
+
             }
         });
     }
