@@ -30,6 +30,7 @@ import android.widget.TextView;
 import com.antonyt.infiniteviewpager.InfinitePagerAdapter;
 import com.antonyt.infiniteviewpager.InfiniteViewPager;
 import com.caldroid.R;
+import com.hirondelle.date4j.DateTime;
 
 import java.lang.reflect.Field;
 import java.text.ParseException;
@@ -43,8 +44,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.TimeZone;
-
-import hirondelle.date4j.DateTime;
 
 /**
  * Caldroid is a fragment that display calendar with dates in a month. Caldroid
@@ -1325,6 +1324,10 @@ public class CaldroidFragment extends DialogFragment {
         if (caldroidListener != null) {
             caldroidListener.onCaldroidViewCreated();
         }
+    }
+
+    public ArrayList<DateTime> getSelectedDates() {
+        return selectedDates;
     }
 
     /**

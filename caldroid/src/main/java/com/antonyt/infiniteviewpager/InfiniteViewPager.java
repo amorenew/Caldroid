@@ -7,9 +7,9 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
-import java.util.ArrayList;
+import com.hirondelle.date4j.DateTime;
 
-import hirondelle.date4j.DateTime;
+import java.util.ArrayList;
 
 /**
  * A {@link ViewPager} that allows pseudo-infinite paging with a wrap-around

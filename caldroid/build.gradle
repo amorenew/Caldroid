@@ -12,10 +12,24 @@ android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_7
     }
+    buildTypes {
+        release {
+            minifyEnabled false
+            shrinkResources true
+            zipAlignEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            testCoverageEnabled = true
+            ext.enableCrashlytics = false
+            shrinkResources true
+            zipAlignEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
 }
 
 dependencies {
     compile 'com.android.support:support-v4:25.1.0'
     compile 'com.android.support:appcompat-v7:25.1.0'
-    compile files('lib/hirondelle-date4j-1.5.1.jar')
 }

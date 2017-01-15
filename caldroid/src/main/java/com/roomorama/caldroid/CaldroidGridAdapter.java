@@ -15,6 +15,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.caldroid.R;
+import com.hirondelle.date4j.DateTime;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -25,8 +26,6 @@ import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-
-import hirondelle.date4j.DateTime;
 
 /**
  * The CaldroidGridAdapter provides customized view for the dates gridview
@@ -207,6 +206,24 @@ public class CaldroidGridAdapter extends BaseAdapter {
                 startDayOfWeek, sixWeeksInCalendar);
 
         getDefaultResources();
+    }
+
+    public DateTime getStartSelectedDate() {
+        if (!selectedDatesMap.isEmpty()) {
+            return selectedDates.get(0);
+        }
+        return null;
+    }
+
+    public boolean isSingleSelectedDate() {
+        return (!selectedDatesMap.isEmpty() && selectedDates.size() == 1);
+    }
+
+    public DateTime getEndSelectedDate() {
+        if (!selectedDatesMap.isEmpty()) {
+            return selectedDates.get(selectedDates.size() - 1);
+        }
+        return null;
     }
 
     public <K extends Comparable, V extends Comparable> LinkedHashMap<K, V> sortByKeys(LinkedHashMap<K, V> map) {
