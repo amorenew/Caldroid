@@ -26,6 +26,7 @@ import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * The CaldroidGridAdapter provides customized view for the dates gridview
@@ -210,18 +211,27 @@ public class CaldroidGridAdapter extends BaseAdapter {
 
     public DateTime getStartSelectedDate() {
         if (!selectedDatesMap.isEmpty()) {
-            return selectedDates.get(0);
+            return getKeyByValue(selectedDatesMap, 0);
         }
         return null;
     }
 
     public boolean isSingleSelectedDate() {
-        return (!selectedDatesMap.isEmpty() && selectedDates.size() == 1);
+        return (!selectedDatesMap.isEmpty() && selectedDatesMap.size() == 1);
     }
 
     public DateTime getEndSelectedDate() {
         if (!selectedDatesMap.isEmpty()) {
-            return selectedDates.get(selectedDates.size() - 1);
+            return getKeyByValue(selectedDatesMap, selectedDatesMap.size() - 1);
+        }
+        return null;
+    }
+
+    private <T, E> T getKeyByValue(Map<T, E> map, E value) {
+        for (Map.Entry<T, E> entry : map.entrySet()) {
+            if (Objects.equals(value, entry.getValue())) {
+                return entry.getKey();
+            }
         }
         return null;
     }

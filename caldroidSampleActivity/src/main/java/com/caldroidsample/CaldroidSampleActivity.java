@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.hirondelle.date4j.DateTime;
 import com.roomorama.caldroid.CaldroidFragment;
 import com.roomorama.caldroid.CaldroidListener;
 
@@ -17,6 +18,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.TimeZone;
 
 @SuppressLint("SimpleDateFormat")
 public class CaldroidSampleActivity extends AppCompatActivity {
@@ -105,6 +107,15 @@ public class CaldroidSampleActivity extends AppCompatActivity {
             public void onSelectDate(Date date, View view) {
                 Toast.makeText(getApplicationContext(), formatter.format(date),
                         Toast.LENGTH_SHORT).show();
+                DateTime startSelectedDate = caldroidFragment.getDatePagerAdapters().get(0).getStartSelectedDate();
+                Calendar startCalendar = Calendar.getInstance();
+                startCalendar.setTimeInMillis(startSelectedDate.getMilliseconds(TimeZone.getDefault()));
+                if (caldroidFragment.getDatePagerAdapters().get(0).isSingleSelectedDate()) {
+                } else {
+                    DateTime endSelectedDate = caldroidFragment.getDatePagerAdapters().get(0).getEndSelectedDate();
+                    Calendar endCalendar = Calendar.getInstance();
+                    endCalendar.setTimeInMillis(endSelectedDate.getMilliseconds(TimeZone.getDefault()));
+                }
             }
 
             @Override
