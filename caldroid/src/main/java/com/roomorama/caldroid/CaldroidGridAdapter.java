@@ -6,6 +6,7 @@ import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.support.v4.content.res.ResourcesCompat;
 import android.util.TypedValue;
 import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
@@ -14,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.Utils;
 import com.caldroid.R;
 import com.hirondelle.date4j.DateTime;
 
@@ -318,7 +320,7 @@ public class CaldroidGridAdapter extends BaseAdapter {
 
             // Set it
             if (textColorResource != null) {
-                textView.setTextColor(resources.getColor(textColorResource));
+                textView.setTextColor(ResourcesCompat.getColor(resources, textColorResource, null));
             }
         }
     }
@@ -386,7 +388,7 @@ public class CaldroidGridAdapter extends BaseAdapter {
         cellView.refreshDrawableState();
 
         // Set text
-        cellView.setText(String.valueOf(dateTime.getDay()));
+        cellView.setText(Utils.getLocalNumber(dateTime.getDay()));
 
         // Set custom color if required
         setCustomResources(dateTime, cellView, cellView);
