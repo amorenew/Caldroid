@@ -15,7 +15,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.Utils;
 import com.caldroid.R;
 import com.hirondelle.date4j.DateTime;
 
@@ -388,7 +387,8 @@ public class CaldroidGridAdapter extends BaseAdapter {
         cellView.refreshDrawableState();
 
         // Set text
-        cellView.setText(Utils.getLocalNumber(dateTime.getDay()));
+        cellView.setText(String.valueOf(dateTime.getDay()));
+//        cellView.setText(Utils.getLocalNumber(dateTime.getDay()));
 
         // Set custom color if required
         setCustomResources(dateTime, cellView, cellView);
