@@ -121,11 +121,13 @@ public class CaldroidSampleActivity extends AppCompatActivity {
                         Toast.LENGTH_SHORT).show();
                 DateTime startSelectedDate = caldroidFragment.getDatePagerAdapters().get(0).getStartSelectedDate();
                 Calendar startCalendar = Calendar.getInstance();
+                if (startSelectedDate != null)
                 startCalendar.setTimeInMillis(startSelectedDate.getMilliseconds(TimeZone.getDefault()));
                 if (caldroidFragment.getDatePagerAdapters().get(0).isSingleSelectedDate()) {
                 } else {
                     DateTime endSelectedDate = caldroidFragment.getDatePagerAdapters().get(0).getEndSelectedDate();
                     Calendar endCalendar = Calendar.getInstance();
+                    if (endSelectedDate != null)
                     endCalendar.setTimeInMillis(endSelectedDate.getMilliseconds(TimeZone.getDefault()));
                 }
             }
