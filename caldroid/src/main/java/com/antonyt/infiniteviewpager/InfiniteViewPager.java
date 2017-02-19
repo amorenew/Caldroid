@@ -40,6 +40,8 @@ public class InfiniteViewPager extends ViewPager {
      * Use internally to decide height of the calendar
      */
     private int rowHeight = 0;
+    private boolean swipeRightEnable = true, swipeLeftEnable = true;
+    private float initialXValue;
 
     // ************** Constructors ********************
     public InfiniteViewPager(Context context, AttributeSet attrs) {
@@ -85,18 +87,42 @@ public class InfiniteViewPager extends ViewPager {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        if (enabled) {
+        if (enabled && this.handleSwipe(event)) {
             return super.onTouchEvent(event);
         }
+
         return false;
     }
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent event) {
-        if (enabled) {
+        if (enabled && this.handleSwipe(event)) {
             return super.onInterceptTouchEvent(event);
         }
+
         return false;
+    }
+
+    private boolean handleSwipe(MotionEvent event) {
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+            initialXValue = event.getX();
+            return true;
+        }
+        if (event.getAction() == MotionEvent.ACTION_MOVE) {
+            try {
+                float diffX = event.getX() - initialXValue;
+                if (diffX > 0) {
+                    // swipe from left to right detected
+                    return isSwipeLeftEnable();
+                } else if (diffX < 0) {
+                    // swipe from right to left detected
+                    return isSwipeRightEnable();
+                }
+            } catch (Exception exception) {
+                exception.printStackTrace();
+            }
+        }
+        return true;
     }
 
     /**
@@ -149,4 +175,19 @@ public class InfiniteViewPager extends ViewPager {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
     }
 
+    public boolean isSwipeRightEnable() {
+        return swipeRightEnable;
+    }
+
+    public void setSwipeRightEnable(boolean swipeRightEnable) {
+        this.swipeRightEnable = swipeRightEnable;
+    }
+
+    public boolean isSwipeLeftEnable() {
+        return swipeLeftEnable;
+    }
+
+    public void setSwipeLeftEnable(boolean swipeLeftEnable) {
+        this.swipeLeftEnable = swipeLeftEnable;
+    }
 }

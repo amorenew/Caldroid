@@ -1433,7 +1433,9 @@ public class CaldroidFragment extends DialogFragment {
         dateViewPager.setAdapter(infinitePagerAdapter);
 
         // Setup pageChangeListener
-        dateViewPager.setOnPageChangeListener(pageChangeListener);
+        dateViewPager.addOnPageChangeListener(pageChangeListener);
+        pageChangeListener.checkSwipe();
+
     }
 
     /**
@@ -1483,6 +1485,9 @@ public class CaldroidFragment extends DialogFragment {
      * @author thomasdao
      */
     public class DatePageChangeListener implements OnPageChangeListener {
+        CaldroidGridAdapter currentAdapter;
+        CaldroidGridAdapter prevAdapter;
+        CaldroidGridAdapter nextAdapter;
         private int currentPage = InfiniteViewPager.OFFSET;
         private DateTime currentDateTime;
         private ArrayList<CaldroidGridAdapter> caldroidGridAdapters;
@@ -1568,11 +1573,11 @@ public class CaldroidFragment extends DialogFragment {
 
         public void refreshAdapters(int position) {
             // Get adapters to refresh
-            CaldroidGridAdapter currentAdapter = caldroidGridAdapters
+            currentAdapter = caldroidGridAdapters
                     .get(getCurrent(position));
-            CaldroidGridAdapter prevAdapter = caldroidGridAdapters
+            prevAdapter = caldroidGridAdapters
                     .get(getPrevious(position));
-            CaldroidGridAdapter nextAdapter = caldroidGridAdapters
+            nextAdapter = caldroidGridAdapters
                     .get(getNext(position));
 
             if (position == currentPage) {
@@ -1618,6 +1623,42 @@ public class CaldroidFragment extends DialogFragment {
 
             // Update current page
             currentPage = position;
+//            maxDateTime = CalendarHelper.convertDateToDateTime(maxDate);
+
+
+        }
+
+        private void checkSwipe() {
+            leftArrowButton.setVisibility(View.VISIBLE);
+            rightArrowButton.setVisibility(View.VISIBLE);
+            dateViewPager.setSwipeLeftEnable(true);
+            dateViewPager.setSwipeRightEnable(true);
+
+//            if (nextAdapter != null
+//                    && nextAdapter.getDatetimeList().get(0).gt(maxDateTime)) {
+//                dateViewPager.setSwipeRightEnable(false);
+//                rightArrowButton.setVisibility(View.INVISIBLE);
+//            } else if (prevAdapter != null
+//                    && prevAdapter.getDatetimeList().get(prevAdapter.getDatetimeList().size()-1).gt(minDateTime)) {
+//                dateViewPager.setSwipeLeftEnable(false);
+//                leftArrowButton.setVisibility(View.INVISIBLE);
+//            }
+            if (currentDateTime.lteq(minDateTime)) {
+                dateViewPager.setSwipeLeftEnable(false);
+                leftArrowButton.setVisibility(View.INVISIBLE);
+            } else if (currentAdapter.getDatetimeList().get(currentAdapter.getDatetimeList().size() - 1).gteq(maxDateTime)) {
+                dateViewPager.setSwipeRightEnable(false);
+                rightArrowButton.setVisibility(View.INVISIBLE);
+            }
+//            if (currentAdapter != null &&
+//                    currentAdapter.getDatetimeList().get(currentAdapter.getDatetimeList().size() - 1).lteq(minDateTime)) {
+//                dateViewPager.setSwipeLeftEnable(false);
+//                leftArrowButton.setVisibility(View.INVISIBLE);
+//            } else if (currentAdapter != null
+//                    && currentAdapter.getDatetimeList().get(0).gteq(maxDateTime)) {
+//                dateViewPager.setSwipeRightEnable(false);
+//                rightArrowButton.setVisibility(View.INVISIBLE);
+//            }
         }
 
         /**
@@ -1637,6 +1678,7 @@ public class CaldroidFragment extends DialogFragment {
             // Refresh dateInMonthsList
             dateInMonthsList.clear();
             dateInMonthsList.addAll(currentAdapter.getDatetimeList());
+            checkSwipe();
         }
 
     }

@@ -5,27 +5,31 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/calendar_title_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/calendar_header_background"
         android:gravity="center_vertical"
-        android:orientation="horizontal"
         android:paddingTop="8dp">
-
-        <ImageButton
-            android:id="@+id/calendar_left_arrow"
-            style="?styleCaldroidLeftArrow" />
 
         <TextView
             android:id="@+id/calendar_month_year_textview"
-            style="?styleCaldroidMonthName" />
+            style="?styleCaldroidMonthName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true" />
+
+        <ImageButton
+            android:id="@+id/calendar_left_arrow"
+            style="?styleCaldroidLeftArrow"
+            android:layout_toStartOf="@id/calendar_month_year_textview" />
 
         <ImageButton
             android:id="@+id/calendar_right_arrow"
-            style="?styleCaldroidRightArrow" />
-    </LinearLayout>
+            style="?styleCaldroidRightArrow"
+            android:layout_toEndOf="@id/calendar_month_year_textview" />
+    </RelativeLayout>
 
     <GridView
         android:id="@+id/weekday_gridview"

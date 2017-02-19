@@ -26,6 +26,14 @@ public class CaldroidSampleActivity extends AppCompatActivity {
     private CaldroidFragment caldroidFragment;
     private CaldroidFragment dialogCaldroidFragment;
 
+    public static long getDayInMillisSecond(int daysCount) {
+        int HOURS_IN_DAY = 24;
+        int MINUTES_IN_HOUR = 60;
+        int SECONDS_IN_MINUTE = 60;
+        int MILLIS_IN_SECOND = 1000;
+        return (long) daysCount * HOURS_IN_DAY * MINUTES_IN_HOUR * SECONDS_IN_MINUTE * MILLIS_IN_SECOND;
+    }
+
     private void setCustomResourceForDates() {
         Calendar cal = Calendar.getInstance();
 
@@ -58,6 +66,10 @@ public class CaldroidSampleActivity extends AppCompatActivity {
         // Setup caldroid fragment
         // **** If you want normal CaldroidFragment, use below line ****
         caldroidFragment = new CaldroidFragment();
+        caldroidFragment.setMinDate(Calendar.getInstance().getTime());
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(calendar.getTimeInMillis() + getDayInMillisSecond(365));
+        caldroidFragment.setMaxDate(calendar.getTime());
 
         // //////////////////////////////////////////////////////////////////////
         // **** This is to show customized fragment. If you want customized
