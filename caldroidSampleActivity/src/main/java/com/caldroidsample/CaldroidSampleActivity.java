@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.Utils;
 import com.hirondelle.date4j.DateTime;
 import com.roomorama.caldroid.CaldroidFragment;
 import com.roomorama.caldroid.CaldroidListener;
@@ -66,7 +67,7 @@ public class CaldroidSampleActivity extends AppCompatActivity {
         // Setup caldroid fragment
         // **** If you want normal CaldroidFragment, use below line ****
         caldroidFragment = new CaldroidFragment();
-        caldroidFragment.setMinDate(Calendar.getInstance().getTime());
+        caldroidFragment.setMinDate(new Date(Calendar.getInstance().getTimeInMillis() + Utils.getDayInMillisSecond()));
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(calendar.getTimeInMillis() + getDayInMillisSecond(365));
         caldroidFragment.setMaxDate(calendar.getTime());

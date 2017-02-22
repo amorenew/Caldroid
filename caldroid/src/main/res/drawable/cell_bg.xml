@@ -10,7 +10,7 @@
     <item android:drawable="@drawable/cell_selected_cell_middle" android:state_pressed="false" caldroid:state_date_selected="true" />
     <!--not current month cell color-->
     <item android:drawable="@color/cell_not_current_month" android:state_pressed="false" caldroid:state_date_prev_next_month="true" />
-    <item android:drawable="@drawable/red_border_gray_bg" android:state_pressed="false" caldroid:state_date_disabled="true" caldroid:state_date_today="true" />
+    <!--<item android:drawable="@drawable/red_border_gray_bg" android:state_pressed="false" caldroid:state_date_disabled="true" caldroid:state_date_today="true" />-->
     <!--disabled cell color-->
     <item android:drawable="@color/cell_not_current_month" caldroid:state_date_disabled="true" />
     <!--on cell touch color-->
