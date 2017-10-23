@@ -216,6 +216,7 @@ public class CaldroidFragment extends DialogFragment {
     private CaldroidListener caldroidListener;
     @DrawableRes
     private int backgroundResId = -1;
+    private boolean singleSelection;
 
     /**
      * To support faster init
@@ -988,7 +989,7 @@ public class CaldroidFragment extends DialogFragment {
                                 return;
                             }
                         }
-                        if (selectedDates.size() > 1) {
+                        if (selectedDates.size() > 1 || singleSelection) {
                             selectedDates.clear();
                         }
                         if (selectedDates.isEmpty()) {
@@ -1268,12 +1269,12 @@ public class CaldroidFragment extends DialogFragment {
         View view = localInflater.inflate(R.layout.calendar_view, container, false);
 
         // For the monthTitleTextView
-        monthTitleTextView = (TextView) view
+        monthTitleTextView = view
                 .findViewById(R.id.calendar_month_year_textview);
 
         // For the left arrow button
-        leftArrowButton = (ImageButton) view.findViewById(R.id.calendar_left_arrow);
-        rightArrowButton = (ImageButton) view
+        leftArrowButton = view.findViewById(R.id.calendar_left_arrow);
+        rightArrowButton = view
                 .findViewById(R.id.calendar_right_arrow);
 
         // Navigate to previous month when user click
@@ -1298,7 +1299,7 @@ public class CaldroidFragment extends DialogFragment {
         setShowNavigationArrows(showNavigationArrows);
 
         // For the weekday gridview ("SUN, MON, TUE, WED, THU, FRI, SAT")
-        weekdayGridView = (GridView) view.findViewById(R.id.weekday_gridview);
+        weekdayGridView = view.findViewById(R.id.weekday_gridview);
         WeekdayArrayAdapter weekdaysAdapter = getNewWeekdayAdapter(themeResource);
         weekdayGridView.setAdapter(weekdaysAdapter);
 
@@ -1393,7 +1394,7 @@ public class CaldroidFragment extends DialogFragment {
         // Setup InfiniteViewPager and InfinitePagerAdapter. The
         // InfinitePagerAdapter is responsible
         // for reuse the fragments
-        dateViewPager = (InfiniteViewPager) view
+        dateViewPager = view
                 .findViewById(R.id.months_infinite_pager);
 
         // Set enable swipe
@@ -1477,6 +1478,10 @@ public class CaldroidFragment extends DialogFragment {
         } catch (IllegalAccessException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public void setSingleSelection(boolean singleSelection) {
+        this.singleSelection = singleSelection;
     }
 
     /**

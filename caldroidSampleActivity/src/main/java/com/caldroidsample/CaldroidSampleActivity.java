@@ -54,6 +54,7 @@ public class CaldroidSampleActivity extends AppCompatActivity {
 //            caldroidFragment.setBackgroundDrawableForDate(green, greenDate);
 //            caldroidFragment.setTextColorForDate(R.color.white, blueDate);
 //            caldroidFragment.setTextColorForDate(R.color.white, greenDate);
+
         }
     }
 
@@ -71,6 +72,7 @@ public class CaldroidSampleActivity extends AppCompatActivity {
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(calendar.getTimeInMillis() + getDayInMillisSecond(365));
         caldroidFragment.setMaxDate(calendar.getTime());
+        caldroidFragment.setSingleSelection(true);
 
         // //////////////////////////////////////////////////////////////////////
         // **** This is to show customized fragment. If you want customized
@@ -125,11 +127,16 @@ public class CaldroidSampleActivity extends AppCompatActivity {
                 if (startSelectedDate != null)
                 startCalendar.setTimeInMillis(startSelectedDate.getMilliseconds(TimeZone.getDefault()));
                 if (caldroidFragment.getDatePagerAdapters().get(0).isSingleSelectedDate()) {
+
                 } else {
                     DateTime endSelectedDate = caldroidFragment.getDatePagerAdapters().get(0).getEndSelectedDate();
                     Calendar endCalendar = Calendar.getInstance();
                     if (endSelectedDate != null)
                     endCalendar.setTimeInMillis(endSelectedDate.getMilliseconds(TimeZone.getDefault()));
+//                    caldroidFragment.clearSelectedDates();
+//                    caldroidFragment.setSelectedDates(date,date);
+//                    caldroidFragment.refreshView();
+
                 }
             }
 
@@ -161,9 +168,9 @@ public class CaldroidSampleActivity extends AppCompatActivity {
         // Setup Caldroid
         caldroidFragment.setCaldroidListener(listener);
 
-        final TextView textView = (TextView) findViewById(R.id.textview);
+        final TextView textView = findViewById(R.id.textview);
 
-        final Button customizeButton = (Button) findViewById(R.id.customize_button);
+        final Button customizeButton = findViewById(R.id.customize_button);
 
         // Customize the calendar
         customizeButton.setOnClickListener(new OnClickListener() {
@@ -247,7 +254,7 @@ public class CaldroidSampleActivity extends AppCompatActivity {
             }
         });
 
-        Button showDialogButton = (Button) findViewById(R.id.show_dialog_button);
+        Button showDialogButton = findViewById(R.id.show_dialog_button);
 
         final Bundle state = savedInstanceState;
         showDialogButton.setOnClickListener(new OnClickListener() {
