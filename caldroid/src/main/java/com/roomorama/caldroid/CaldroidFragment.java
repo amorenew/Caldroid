@@ -1652,9 +1652,11 @@ public class CaldroidFragment extends DialogFragment {
             if (minDateTime != null && currentDateTime.lteq(minDateTime)) {
                 dateViewPager.setSwipeLeftEnable(false);
                 leftArrowButton.setVisibility(View.INVISIBLE);
-            } else if (maxDateTime != null && currentAdapter.getDatetimeList().get(currentAdapter.getDatetimeList().size() - 1).gteq(maxDateTime)) {
-                dateViewPager.setSwipeRightEnable(false);
-                rightArrowButton.setVisibility(View.INVISIBLE);
+            } else {
+                if (currentAdapter != null && maxDateTime != null & currentAdapter.getDatetimeList() != null && currentAdapter.getDatetimeList().get(currentAdapter.getDatetimeList().size() - 1) != null && currentAdapter.getDatetimeList().get(currentAdapter.getDatetimeList().size() - 1).gteq(maxDateTime)) {
+                    dateViewPager.setSwipeRightEnable(false);
+                    rightArrowButton.setVisibility(View.INVISIBLE);
+                }
             }
 //            if (currentAdapter != null &&
 //                    currentAdapter.getDatetimeList().get(currentAdapter.getDatetimeList().size() - 1).lteq(minDateTime)) {
